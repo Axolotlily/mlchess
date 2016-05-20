@@ -442,7 +442,7 @@ function expandConfig() {
   if (cfg.hasOwnProperty('pieceTheme') !== true ||
       (typeof cfg.pieceTheme !== 'string' &&
        typeof cfg.pieceTheme !== 'function')) {
-    cfg.pieceTheme = 'img/chesspieces/wikipedia/{piece}.png';
+    cfg.pieceTheme = '/images/chesspieces/{piece}.png';
   }
 
   // animation speeds
@@ -638,11 +638,14 @@ function buildBoard(orientation) {
 }
 
 function buildPieceImgSrc(piece) {
+
   if (typeof cfg.pieceTheme === 'function') {
     return cfg.pieceTheme(piece);
   }
 
   if (typeof cfg.pieceTheme === 'string') {
+      console.log(cfg.pieceTheme.replace(/{piece}/g, piece));
+    // return "{piece}.png".replace(/{piece}/g, piece)
     return cfg.pieceTheme.replace(/{piece}/g, piece);
   }
 
